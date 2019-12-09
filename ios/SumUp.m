@@ -58,19 +58,23 @@ RCT_EXPORT_MODULE()
 RCT_EXPORT_METHOD(setup:(NSString *)key resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
-    BOOL setupResponse = [SMPSumUpSDK setupWithAPIKey:key];
-    if (setupResponse) {
-        resolve(@"setup successful");
-    } else {
-        reject(@"000", @"It was not possible to complete setup with SumUp SDK. Please, check your implementation.", nil);
-    }
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        BOOL setupResponse = [SMPSumUpSDK setupWithAPIKey:key];
+        if (setupResponse) {
+            resolve(@"setup successful");
+        } else {
+            reject(@"000", @"It was not possible to complete setup with SumUp SDK. Please, check your implementation.", nil);
+        }
+    });
 }
 
 RCT_EXPORT_METHOD(authenticate:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        ScreenSaverManager *sharedManager = [ScreenSaverManager sharedManager];
-        UIViewController *rootViewController = sharedManager.mainView;
+        // ScreenSaverManager *sharedManager = [ScreenSaverManager sharedManager];
+        // UIViewController *rootViewController = sharedManager.mainView;
+
+        UIViewController *rootViewController = UIApplication.sharedApplication.delegate.window.rootViewController;
         [SMPSumUpSDK presentLoginFromViewController:rootViewController animated:YES
                                     completionBlock:^(BOOL success, NSError *error) {
             if (error) {
@@ -113,24 +117,28 @@ RCT_EXPORT_METHOD(authenticateWithToken:(NSString *)token resolver:(RCTPromiseRe
 
 RCT_EXPORT_METHOD(logout:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-    [SMPSumUpSDK logoutWithCompletionBlock:^(BOOL success, NSError * _Nullable error) {
-        if (!success) {
-            reject(@"004", @"It was not possible to log out with SumUp. Please, try again.", nil);
-        } else {
-            resolve(nil);
-        }
-    }];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [SMPSumUpSDK logoutWithCompletionBlock:^(BOOL success, NSError * _Nullable error) {
+            if (!success) {
+                reject(@"004", @"It was not possible to log out with SumUp. Please, try again.", nil);
+            } else {
+                resolve(nil);
+            }
+        }];
+    });
 }
 
 RCT_EXPORT_METHOD(prepareForCheckout:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-    BOOL isLoggedIn = [SMPSumUpSDK isLoggedIn];
-    if (isLoggedIn) {
-        [SMPSumUpSDK prepareForCheckout];
-        resolve(nil);
-    } else {
-        reject(@"003", @"It was not possible to prepare for checkout. Please, log in first.", nil);
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        BOOL isLoggedIn = [SMPSumUpSDK isLoggedIn];
+        if (isLoggedIn) {
+            [SMPSumUpSDK prepareForCheckout];
+            resolve(nil);
+        } else {
+            reject(@"003", @"It was not possible to prepare for checkout. Please, log in first.", nil);
+        }
+    });
 }
 
 RCT_EXPORT_METHOD(checkout:(NSDictionary *)request resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
