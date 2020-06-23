@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.dependency "React"
-  s.dependency "SumUpSDK"
+  s.dependency "SumUpSDK" '>= 3.5b1'
   # ...
   # s.dependency "..."
 end
