@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "jsx": "react",
+    "lib": ["es6"],
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "noEmit": true,
+    // "noImplicitAny": false,
+    "outDir": "dist",
+    "strict": true,
+    "target": "es5",
+    "resolveJsonModule": true,
+    "declaration": true
+  },
+  "include": ["src/index.ts"],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

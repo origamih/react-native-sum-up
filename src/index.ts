@@ -28,7 +28,7 @@ const SumUp = {
   SMPCurrencyCodeSEK: RNSumUpWrapper.SMPCurrencyCodeSEK,
   SMPCurrencyCodeUSD: RNSumUpWrapper.SMPCurrencyCodeUSD,
 
-  setup(key) {
+  setup(key: string) {
     this.apiKey = key;
     if (Platform.OS === 'ios') {
       return RNSumUpWrapper.setup(key);
@@ -39,7 +39,7 @@ const SumUp = {
     return (Platform.OS === 'ios') ? RNSumUpWrapper.authenticate() : RNSumUpWrapper.authenticate(this.apiKey);
   },
 
-  authenticateWithToken(token) {
+  authenticateWithToken(token: string) {
     return (Platform.OS === 'ios') ? RNSumUpWrapper.authenticateWithToken(token) : RNSumUpWrapper.authenticateWithToken(this.apiKey, token);
   },
 
@@ -51,7 +51,7 @@ const SumUp = {
     return RNSumUpWrapper.prepareForCheckout();
   },
 
-  checkout(totalAmount, title, currencyCode, foreignTransactionId = null) {
+  checkout(totalAmount: number, title: string, currencyCode: string, foreignTransactionId = null) {
     const request = {
       totalAmount,
       title,
