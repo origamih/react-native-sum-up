@@ -4,14 +4,38 @@
 
 `$ npm install react-native-sum-up --save`
 
-### Mostly automatic installation
+### iOS
+`$ cd ios/`
+`$ pod install`
 
-`$ react-native link react-native-sum-up`
+### Android
 
-## Usage
-```javascript
-import SumUp from 'react-native-sum-up';
+In `android/build.gradle`, add:
+```
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://maven.sumup.com/releases' } // -> this
+        ...
+    }
+}
+```
 
-// TODO: What to do with the module?
-SumUp;
+In `android/app/build.gradle`, add:
+```
+dependencies {
+    ...
+    implementation 'com.sumup:merchant-sdk:3.2.0' // -> this
+    ...
+}
+```
+
+In `MainActivity.java`, add:
+```java
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    ...
+    SumUpState.init(this); // -> this
+    ...
+}
 ```
