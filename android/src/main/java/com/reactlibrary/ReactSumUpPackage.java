@@ -10,10 +10,10 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
 import com.facebook.react.bridge.JavaScriptModule;
 
-public class SumUpPackage implements ReactPackage {
+public class ReactSumUpPackage implements ReactPackage {
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
-        return Arrays.<NativeModule>asList(new SumUpModule(reactContext));
+        return Arrays.<NativeModule>asList(new ReactSumUpModule(reactContext));
     }
 
     @Override
