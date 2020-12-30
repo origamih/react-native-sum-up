@@ -29,7 +29,7 @@ RCT_ENUM_CONVERTER(SMPSkipScreenOptions, (@{@"1" : @(SMPSkipScreenOptionSuccess)
 @end
 
 
-@implementation SumUp
+@implementation SumUpBridge
 
 - (NSDictionary *)constantsToExport
 {

@@ -13,12 +13,9 @@ import com.facebook.react.bridge.BaseActivityEventListener;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
-import com.sumup.merchant.Models.TransactionInfo;
 import com.sumup.merchant.api.SumUpAPI;
 import com.sumup.merchant.api.SumUpLogin;
 import com.sumup.merchant.api.SumUpPayment;
-import com.sumup.merchant.CoreState;
-import com.sumup.merchant.Models.UserModel;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -88,7 +85,7 @@ public class ReactSumUpModule extends ReactContextBaseJavaModule {
             case "PLN": return SumUpPayment.Currency.PLN;
             case "SEK": return SumUpPayment.Currency.SEK;
             case "CLP": return SumUpPayment.Currency.CLP;
-            default:  return SumUpPayment.Currency.CLP;
+            default:  return SumUpPayment.Currency.GBP;
         }
     }
 

@@ -2,6 +2,6 @@
 #import <SumUpSDK/SumUpSDK.h>
 #import <React/RCTConvert.h>
 
-@interface SumUp : NSObject <RCTBridgeModule>
+@interface SumUpBridge : NSObject <RCTBridgeModule>
 
 @end
